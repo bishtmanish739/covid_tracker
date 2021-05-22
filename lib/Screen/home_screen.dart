@@ -1,9 +1,11 @@
-import 'dart:ffi';
-
 import 'package:covid_tracker/models/covid_country.dart';
+import 'package:covid_tracker/models/globalModel.dart';
+import 'package:covid_tracker/widget/global_widget.dart';
 import 'package:covid_tracker/widget/my_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,8 +13,49 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String url = "https://api.covid19api.com/summary";
+  final url = "https://api.covid19api.com/summary";
   final _allCase = CovidCounty();
+  Global g = null;
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    await Future.delayed(Duration(seconds: 2));
+    // final catalogJson =
+    //     await rootBundle.loadString("assets/files/catalog.json");
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      final dataMap = jsonResponse['Global'] as Map;
+      g = new Global(
+          dataMap['NewConfirmed'],
+          dataMap['TotalConfirmed'],
+          dataMap['TotalDeaths'],
+          dataMap['NewDeaths'],
+          dataMap['NewRecovered'],
+          dataMap['TotalRecovered']);
+
+      print('New Covid Cases: ${g.newConfirm}');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+    // if (response.statusCode == 200) {
+    //   var jsonResponse = convert.jsonDecode(response.body);
+    //   var itemCount = jsonResponse['totalItems'];
+    //   print('Number of books about http: $itemCount.');
+    // } else {
+    //   print('Request failed with status: ${response.statusCode}.');
+    // }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,13 +64,15 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: MyDrawer(),
       body: SafeArea(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [],
-          ),
-        ),
-      ),
+          child: g == null
+              ? Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    GlobalCase(
+                      allCase: g,
+                    ),
+                  ],
+                )),
     );
   }
 }

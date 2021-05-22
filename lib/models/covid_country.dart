@@ -1,6 +1,7 @@
 class CovidCounty {
   // ignore: non_constant_identifier_names
   List<CovidCaseDetail> AllCountryList;
+
   CovidCounty();
   CovidCaseDetail getById(int id) =>
       AllCountryList.firstWhere((element) => element.id == id, orElse: null);
