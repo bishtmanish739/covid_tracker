@@ -1,4 +1,4 @@
-import 'package:covid_tracker/models/covid_country.dart';
+import 'package:covid_tracker/data/models/covid_country.dart';
 import 'package:flutter/material.dart';
 
 class ListViewWidget extends StatefulWidget {

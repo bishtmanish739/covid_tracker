@@ -1,11 +1,11 @@
-import 'package:covid_tracker/models/covid_country.dart';
-import 'package:covid_tracker/models/globalModel.dart';
+import 'package:covid_tracker/businesslogic/bloc/global_bloc.dart';
+import 'package:covid_tracker/data/models/covid_country.dart';
+import 'package:covid_tracker/data/models/globalModel.dart';
 import 'package:covid_tracker/widget/global_widget.dart';
 import 'package:covid_tracker/widget/my_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   final _allCase = CovidCounty();
   Global g = null;
 
-  @override
+  /* @override
   void initState() {
     super.initState();
     loadData();
@@ -54,6 +54,18 @@ class _HomePageState extends State<HomePage> {
     // }
 
     setState(() {});
+  }*/
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -64,15 +76,20 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: MyDrawer(),
       body: SafeArea(
-          child: g == null
-              ? Center(child: CircularProgressIndicator())
-              : Column(
-                  children: [
-                    GlobalCase(
-                      allCase: g,
-                    ),
-                  ],
-                )),
+          // ignore: missing_required_param
+          child: BlocListener<GlobalBloc, GlobalCaseState>(
+        listener: (BuildContext context, state) {
+          if (state is GlobalCaseLoaded) {
+            print(state.allCase.toString());
+          }
+          //.add(FetchGlobalCaseEvent());
+        },
+        child: Column(
+          children: [
+            GlobalCase(),
+          ],
+        ),
+      )),
     );
   }
 }

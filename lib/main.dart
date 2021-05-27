@@ -3,7 +3,11 @@ import 'package:covid_tracker/Screen/covid_symptom.dart';
 import 'package:covid_tracker/Screen/home_screen.dart';
 import 'package:covid_tracker/Screen/splash_screen.dart';
 import 'package:covid_tracker/Screen/vaccination.dart';
+import 'package:covid_tracker/businesslogic/bloc/global_bloc.dart';
+import 'package:covid_tracker/data/models/globalModel.dart';
+import 'package:covid_tracker/data/repository/global_ripo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +21,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.cyan,
       ),
-      home: MyHomePage(),
+      home: BlocProvider<GlobalBloc>(
+        create: (context) => GlobalBloc(GlobalRepo()),
+        child: MyHomePage(),
+      ),
       routes: {
         '/Symptom': (context) => CovidSymptom(),
         '/Vaccination': (context) => Vaccination(),
