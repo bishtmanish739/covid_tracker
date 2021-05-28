@@ -1,4 +1,4 @@
-import 'package:covid_tracker/data/models/covid_country.dart';
+import 'package:covid_tracker/data/models/globalModel.dart';
 import 'package:flutter/material.dart';
 
 class ListViewWidget extends StatefulWidget {
@@ -7,7 +7,7 @@ class ListViewWidget extends StatefulWidget {
 }
 
 class _ListViewWidgetState extends State<ListViewWidget> {
-  List<CovidCaseDetail> AllCountryList;
+  Global g;
   @override
   Widget build(BuildContext context) {
     return Container();

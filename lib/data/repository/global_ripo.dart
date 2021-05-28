@@ -3,8 +3,13 @@ import 'package:covid_tracker/data/models/globalModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class GlobalRepo {
-  Future<Global> getGlobal() async {
+abstract class GlobalRepository {
+  Future<Global> getGlobal;
+}
+
+class GlobalRepo extends GlobalRepository {
+  @override
+  Future<Global> get getGlobal async {
     final result =
         await http.Client().get("https://api.covid19api.com/summary");
 
@@ -19,6 +24,6 @@ class GlobalRepo {
 
     final jsonGlobal = jsonDecoded["Global"];
 
-    return Global.fromJson(jsonGlobal);
+    return Global.fromJson(jsonDecoded);
   }
 }
