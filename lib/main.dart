@@ -15,21 +15,21 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Splash Screen',
-      theme: ThemeData(
-        primarySwatch: Colors.cyan,
-      ),
-      home: BlocProvider(
+    return BlocProvider(
         create: (context) => GlobalBloc(GlobalRepo()),
-        child: HomePage(),
-      ),
-      routes: {
-        '/Symptom': (context) => CovidSymptom(),
-        '/Vaccination': (context) => Vaccination(),
-      },
-      debugShowCheckedModeBanner: false,
-    );
+        child: MaterialApp(
+          title: 'Splash Screen',
+          theme: ThemeData(
+            primarySwatch: Colors.cyan,
+          ),
+          home: MyHomePage(),
+          routes: {
+            '/Symptom': (context) => CovidSymptom(),
+            '/Vaccination': (context) => Vaccination(),
+            '/HomePage': (context) => HomePage(),
+          },
+          debugShowCheckedModeBanner: false,
+        ));
   }
 }
 
@@ -43,9 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage())));
+        Duration(seconds: 3), () => Navigator.pushNamed(context, '/HomePage'));
   }
 
   @override

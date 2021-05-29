@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GlobalBloc extends Bloc<GlobalCaseEvent, GlobalState> {
   GlobalRepo globalRepo;
-  GlobalBloc(this.globalRepo, {GlobalRepo repository}) : super(null);
+  GlobalBloc(this.globalRepo) : super(null);
+  GlobalState get initialState => GlobalInitailState();
 
   @override
   Stream<GlobalState> mapEventToState(GlobalCaseEvent event) async* {
@@ -14,7 +15,7 @@ class GlobalBloc extends Bloc<GlobalCaseEvent, GlobalState> {
     if (event is FetchGlobalEvent) {
       yield GlobalLoadingState();
       try {
-        Global _allGlobalCase = await globalRepo.getGlobal;
+        Global _allGlobalCase = await globalRepo.getGlobal();
         yield GlobalLoadedState(_allGlobalCase);
       } catch (_) {
         yield GlobalErrorState();

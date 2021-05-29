@@ -4,12 +4,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 abstract class GlobalRepository {
-  Future<Global> getGlobal;
+  Future<Global> getGlobal();
 }
 
 class GlobalRepo extends GlobalRepository {
   @override
-  Future<Global> get getGlobal async {
+  Future<Global> getGlobal() async {
     final result =
         await http.Client().get("https://api.covid19api.com/summary");
 
@@ -21,9 +21,12 @@ class GlobalRepo extends GlobalRepository {
 
   Global parsedJson(final response) {
     final jsonDecoded = json.decode(response);
+    print(jsonDecoded.runtimeType);
 
-    final jsonGlobal = jsonDecoded["Global"];
+    //final jsonGlobal = jsonDecoded["Global"];
 
-    return Global.fromJson(jsonDecoded);
+    Global g = Global.fromJson(jsonDecoded);
+
+    return g;
   }
 }
