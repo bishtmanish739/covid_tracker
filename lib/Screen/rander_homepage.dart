@@ -22,6 +22,8 @@ class _HomePageRanderState extends State<HomePageRander> {
           GLobalCaseRander(),
           SavedCountry(),
           Expanded(child: RanderCounry()),
+          //3 widget are here
+          //git checout dev
         ],
       ),
     );

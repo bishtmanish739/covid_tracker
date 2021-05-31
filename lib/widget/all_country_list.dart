@@ -38,8 +38,14 @@ class RanderCounry extends StatelessWidget {
                             InkWell(
                               child: Icon(Icons.star),
                               onTap: () async {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Pinned')));
+                                var latlng = await Gps.currentGps();
+                                if (latlng == null) {
+                                  print('null');
+                                } else {
+                                  print('here');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Pinned')));
+                                }
                               },
                             ),
                             Flag(
@@ -117,7 +123,7 @@ class RanderCounry extends StatelessWidget {
                                       "Total Recovered ",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 12,
+                                          fontSize: 8,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],
