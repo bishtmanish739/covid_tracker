@@ -147,6 +147,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gps:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "6f51fabda66508517b5665747fc2f1d873c82a57"
+      url: "https://github.com/bishtmanish739/flutter_gps.git"
+    source: git
+    version: "0.2.0"
   http:
     dependency: "direct main"
     description:

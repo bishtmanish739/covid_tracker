@@ -4,6 +4,7 @@ import 'package:covid_tracker/data/models/globalModel.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gps/gps.dart';
 
 class RanderCounry extends StatelessWidget {
   @override
@@ -36,7 +37,7 @@ class RanderCounry extends StatelessWidget {
                           children: [
                             InkWell(
                               child: Icon(Icons.star),
-                              onTap: () {
+                              onTap: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text('Pinned')));
                               },
